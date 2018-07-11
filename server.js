@@ -24,17 +24,34 @@ app.post('/', function (req, res) {
 	let movie = req.body.movie;
 	let api_key = 'd3d327f7f687384a8074b41ead81a040'; // NOTE: HIDE API KEY BEFORE RELEASE (tho I guess it's kinda too late thanks to Github)
 	let url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${movie}`; //potential issues with space vs +
-
+	let movieID = null;
 	
 	request(url, function (err, response, body) {
   		if(err){
-    		console.log('error:', error);
+    		res.render('index', {movieDetails: null, error: 'Error, please try again'});
   		} else {
-    		let movieDetails = JSON.parse(body);
-    		let movieMessage = `The movie ID for ${movie} is ${movieDetails['results']['0']['id']}`;
-    		res.send(movieMessage);
+    		let movieInfo = JSON.parse(body);
+    		// let movieMessage = `The movie ID for ${movie} is ${movieDetails['results']['0']['id']}`;
+    		movieID = movieInfo['results'][0]['id'];
 		}
-	});
+
+  	let info_url = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${api_key}`;
+
+	request(info_url, function (err, response, body) {
+		if(err){
+    		res.render('index', {movieDetails: null, error: 'Error, please try again'});
+    	} else {
+
+    		let movieDetails = JSON.parse(body);
+    		if (movieDetails.runtime == undefined){
+    			res.render('index', {movieDetails: null, error: 'Error, please try again'});
+    		} else {
+    			let movieText = `${movie} has a runtime of ${movieDetails.runtime} minutes`;
+    			res.render('index', {movieDetails: movieText, error: null});
+    		}
+    	}
+    });
+});
 	// request(url, function (err, response, body) {
 	// 	if(err){
 	// 		res.render('index', {weather: null, error: 'Error, please try again'});
