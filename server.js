@@ -17,12 +17,12 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
-  res.render('index', {weather: null, error: null})
+  res.render('index', {movieDetails: null, error: null})
 });
 
 app.post('/', function (req, res) {
 	let movie = req.body.movie;
-	let api_key = 'd3d327f7f687384a8074b41ead81a040';
+	let api_key = 'd3d327f7f687384a8074b41ead81a040'; // NOTE: HIDE API KEY BEFORE RELEASE (tho I guess it's kinda too late thanks to Github)
 	let url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${movie}`; //potential issues with space vs +
 
 	
@@ -30,7 +30,9 @@ app.post('/', function (req, res) {
   		if(err){
     		console.log('error:', error);
   		} else {
-    		console.log('body:', body);
+    		let movieDetails = JSON.parse(body);
+    		let movieMessage = `The movie ID for ${movie} is ${movieDetails['results']['0']['id']}`;
+    		res.send(movieMessage);
 		}
 	});
 	// request(url, function (err, response, body) {
