@@ -8,6 +8,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "imdb-api": "^4.0.0",
+    "moviedb": "^0.2.10",
     "request": "^2.87.0"
   },
   "devDependencies": {},
