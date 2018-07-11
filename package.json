@@ -1,0 +1,27 @@
+{
+  "name": "imdb-app-simple",
+  "version": "1.0.0",
+  "description": "simple app pulling data from imdb based on user query",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sourcemasters/imdb-app-simple.git"
+  },
+  "author": "MYW",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sourcemasters/imdb-app-simple/issues"
+  },
+  "homepage": "https://github.com/sourcemasters/imdb-app-simple#readme"
+}
