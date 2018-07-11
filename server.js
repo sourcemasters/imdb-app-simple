@@ -22,9 +22,17 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 	let movie = req.body.movie;
-	//let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+	let api_key = 'd3d327f7f687384a8074b41ead81a040';
+	let url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${movie}`; //potential issues with space vs +
 
-	res.send(`${movie} is pretty good, or so I've heard.`);	
+	
+	request(url, function (err, response, body) {
+  		if(err){
+    		console.log('error:', error);
+  		} else {
+    		console.log('body:', body);
+		}
+	});
 	// request(url, function (err, response, body) {
 	// 	if(err){
 	// 		res.render('index', {weather: null, error: 'Error, please try again'});
